@@ -1,3 +1,6 @@
-from django.shortcuts import render
+from django.views.generic import TemplateView
 
-# Create your views here.
+
+class MenuTemplateView(TemplateView):
+    """Представление для отображения меню."""
+    template_name = 'main_menu.html'

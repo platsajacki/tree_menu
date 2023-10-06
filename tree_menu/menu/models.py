@@ -2,6 +2,7 @@ from django.db import models
 
 
 class Menu(models.Model):
+    """Модель для хранения информации о меню."""
     name = models.CharField(
         max_length=100,
         verbose_name='name'
@@ -11,11 +12,13 @@ class Menu(models.Model):
         verbose_name = 'Menu'
         verbose_name_plural = 'Menus'
 
-    def __str__(self):
+    def __str__(self) -> str:
+        """Строковое представление наименования меню."""
         return self.name
 
 
 class MenuItem(models.Model):
+    """Модель для хранения информации о пунктах меню."""
     menu = models.ForeignKey(
         Menu,
         related_name='items',
@@ -42,5 +45,6 @@ class MenuItem(models.Model):
         verbose_name = 'Menu item'
         verbose_name_plural = 'Menu items'
 
-    def __str__(self):
+    def __str__(self) -> str:
+        """Строковое представление наименования пункта меню."""
         return self.name
