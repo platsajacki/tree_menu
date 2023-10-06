@@ -40,7 +40,7 @@ def get_html_code_menu(
         if not parent_item and is_item_branch:
             main_branch = item
         # Если в итерации активный пункт,
-        # прописываем его насдедников и переходим к дргой ветке.
+        # прописываем его наследников и переходим к другой ветке.
         if is_active:
             menu_html += '<menu>'
             for child in item.child.all():
@@ -49,8 +49,8 @@ def get_html_code_menu(
                 )
             menu_html += '</menu>'
             continue
-        # Eсли находимся в ветке с актиным пунктом,
-        # продолжаеем писать код до активного пункта.
+        # Eсли находимся в ветке с активным пунктом,
+        # продолжаем писать код до активного пункта.
         if is_item_branch:
             menu_html += get_html_code_menu(
                 items_menu, active_item, parent_item=item
