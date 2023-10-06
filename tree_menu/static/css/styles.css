@@ -1,0 +1,40 @@
+/* Стили для меню */
+menu {
+  box-sizing: border-box;
+  margin: 0;
+}
+
+/* Стили для элементов меню */
+menu li {
+  display: block;
+  width: 200px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* Стили для активного элемента меню */
+menu li.active {
+  background-color: #7185e7;
+}
+
+/* Стили для ссылок в меню */
+menu li a {
+  display: block;
+  width: 160px;
+  padding: 10px 20px;
+  text-decoration: none;
+  color: #372525;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+/* Стили для ссылок при наведении курсора */
+menu li a:hover {
+  background-color: #a6b2f09f;
+  color: #fff;
+}
+
+/* Вложенные меню */
+menu menu {
+  padding-left: 20px;
+}

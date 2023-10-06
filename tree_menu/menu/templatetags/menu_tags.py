@@ -17,7 +17,7 @@ def is_item_in_branch(menu_item: MenuItem, branch_root: MenuItem) -> bool:
     """
     if menu_item == branch_root:
         return True
-    if menu_item.parent is None:
+    if menu_item is None or menu_item.parent is None:
         return False
     return is_item_in_branch(menu_item.parent, branch_root)
 
@@ -31,12 +31,16 @@ def get_html_code_menu(
     menu_html: str = '<menu>'
     for item in items_menu.filter(parent=parent_item):
         is_active: bool = item == active_item
+        is_item_branch: bool = is_item_in_branch(active_item, item)
         class_active: str = ' class="active"' if is_active else ''
         menu_html += (
             f'<li{class_active}><a href="{item.url}">{item.name}</a></li>'
         )
-        if not parent_item and is_item_in_branch(active_item, item):
+        # Если это корень меню с активным пунктом, объявляем гланую ветку.
+        if not parent_item and is_item_branch:
             main_branch = item
+        # Если в итерации активный пункт,
+        # прописываем его насдедников и переходим к дргой ветке.
         if is_active:
             menu_html += '<menu>'
             for child in item.child.all():
@@ -45,12 +49,17 @@ def get_html_code_menu(
                 )
             menu_html += '</menu>'
             continue
-        if is_item_in_branch(active_item, item):
+        # Eсли находимся в ветке с актиным пунктом,
+        # продолжаеем писать код до активного пункта.
+        if is_item_branch:
             menu_html += get_html_code_menu(
                 items_menu, active_item, parent_item=item
             )
+        # Eсли мы находимся не в активной ветке
+        # и пункт меню не пренадлежит главной ветке,
+        # то записываем пункт, не раскрывая дальше.
         if (
-            not is_item_in_branch(active_item, item)
+            not is_item_branch
             and is_item_in_branch(item, main_branch)
         ):
             menu_html += f'<li><a href="{item.url}">{item.name}</a></li>'
