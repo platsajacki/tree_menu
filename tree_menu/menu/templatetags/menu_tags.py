@@ -75,6 +75,5 @@ def draw_menu(context: dict[str, Any], name_menu: str) -> SafeText:
         items_menu: QuerySet = MenuItem.objects.filter(menu__name=name_menu)
     except MenuItem.DoesNotExist:
         raise Http404('Меню не найдено.')
-    active_item = items_menu.filter(url=absolute_url).first()
-    return mark_safe(get_html_code_menu(items_menu.all(), active_item))
-
+    active_item: MenuItem = items_menu.filter(url=absolute_url).first()
+    return mark_safe(get_html_code_menu(items_menu, active_item))
